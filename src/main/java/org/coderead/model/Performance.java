@@ -1,7 +1,7 @@
 package org.coderead.model;
 
 /**
- * 新建类
+ * 表演
  *
  * @author kendoziyu
  * @since 2020/10/11 0011

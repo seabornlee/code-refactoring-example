@@ -1,6 +1,5 @@
 package org.coderead;
 
-import org.coderead.enums.PlayType;
 import org.coderead.model.Invoice;
 import org.coderead.model.Performance;
 import org.coderead.model.Play;
@@ -10,14 +9,22 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 账单类
+ * 客户服务类
  *
  * @author kendoziyu
  * @since 2020/10/11 0011
  */
 public class Statement {
 
-    public static String statement(Invoice invoice, Map<String, Play> plays) {
+    private Invoice invoice;
+    private Map<String, Play> plays;
+
+    public Statement(Invoice invoice, Map<String, Play> plays) {
+        this.invoice = invoice;
+        this.plays = plays;
+    }
+
+    public String show() {
         int totalAmount = 0;
         int volumeCredits = 0;
         String result = String.format("Statement for %s", invoice.getCustomer());
@@ -29,15 +36,14 @@ public class Statement {
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
             int thisAmount = 0;
-            PlayType playType = PlayType.valueOf(play.getType().toUpperCase());
-            switch (playType) {
-                case TRAGEDY:
+            switch (play.getType()) {
+                case "tragedy":
                     thisAmount = 40000;
                     if (performance.getAudience() > 30) {
                         thisAmount += 1000 * (performance.getAudience() - 30);
                     }
                     break;
-                case COMEDY:
+                case "comedy":
                     thisAmount = 30000;
                     if (performance.getAudience() > 20) {
                         thisAmount += 10000 + 500 *(performance.getAudience() - 20);
@@ -50,7 +56,7 @@ public class Statement {
 
             volumeCredits += Math.max(performance.getAudience() - 30, 0);
 
-            if (PlayType.COMEDY.equals(playType)) {
+            if ("comedy".equals(play.getType())) {
                 volumeCredits += Math.floor(performance.getAudience() / 5);
             }
 

@@ -18,7 +18,7 @@ import java.util.Map;
 public class StatementTest {
 
     @Test
-    public void test0() {
+    public void test() {
         String expected = "Statement for BigCo Hamlet: $650.00 (55 seats)\n" +
                 " As You Like It: $580.00 (35 seats)\n" +
                 " Othello: $500.00 (40 seats)\n" +
@@ -41,7 +41,8 @@ public class StatementTest {
         TypeReference<Map<String, Play>> typeReference = new TypeReference<Map<String, Play>>(){};
         Map<String, Play> playMap = JSONObject.parseObject(plays, typeReference);
         Invoice invoice = JSONObject.parseObject(invoices, Invoice.class);
-        String result = Statement.statement(invoice, playMap);
+        Statement statement = new Statement(invoice, playMap);
+        String result = statement.show();
         Assert.assertEquals(expected, result);
     }
 }

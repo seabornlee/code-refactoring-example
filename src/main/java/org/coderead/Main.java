@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 新建类
+ * 主运行类
  *
  * @author kendoziyu
  * @since 2020/10/11 0011
@@ -34,7 +34,8 @@ public class Main {
         Map<String, Play> playMap = JSONObject.parseObject(plays, typeReference);
         List<Invoice> invoiceList = JSONObject.parseArray(invoices, Invoice.class);
         for (Invoice invoice : invoiceList) {
-            String result = Statement.statement(invoice, playMap);
+            Statement statement = new Statement(invoice, playMap);
+            String result = statement.show();
             System.out.println(result);
         }
 
