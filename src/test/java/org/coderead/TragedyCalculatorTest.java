@@ -1,5 +1,6 @@
 package org.coderead;
 
+import org.coderead.calculator.TragedyCalculator;
 import org.coderead.model.Performance;
 import org.junit.Test;
 

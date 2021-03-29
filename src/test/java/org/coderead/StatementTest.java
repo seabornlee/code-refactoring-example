@@ -23,13 +23,15 @@ public class StatementTest {
                 " As You Like It: $580.00 (35 seats)\n" +
                 " Othello: $500.00 (40 seats)\n" +
                 " Ji Xie Shi: $500.00 (40 seats)\n" +
-                "Amount owed is $2,230.00\n" +
-                "You earned 57 credits\n";
+                " Bai She Zhuan: $500.00 (40 seats)\n" +
+                "Amount owed is $2,730.00\n" +
+                "You earned 67 credits\n";
         final String plays = "{" +
                 "\"hamlet\":{\"name\":\"Hamlet\",\"type\":\"tragedy\"}," +
                 "\"as-like\":{\"name\":\"As You Like It\",\"type\":\"comedy\"}," +
                 "\"othello\":{\"name\":\"Othello\",\"type\":\"tragedy\"}," +
-                "\"jxs\":{\"name\":\"Ji Xie Shi\",\"type\":\"action\"}" +
+                "\"jxs\":{\"name\":\"Ji Xie Shi\",\"type\":\"action\"}," +
+                "\"bsz\":{\"name\":\"Bai She Zhuan\",\"type\":\"love\"}" +
                 "}";
 
         final String invoices = "{" +
@@ -38,6 +40,7 @@ public class StatementTest {
                 "{\"playId\":\"as-like\",\"audience\":35}" +
                 "{\"playId\":\"othello\",\"audience\":40}" +
                 "{\"playId\":\"jxs\",\"audience\":40}" +
+                "{\"playId\":\"bsz\",\"audience\":40}" +
                 "]" +
                 "}";
 

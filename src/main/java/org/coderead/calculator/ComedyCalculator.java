@@ -1,4 +1,4 @@
-package org.coderead;
+package org.coderead.calculator;
 
 import org.coderead.model.Performance;
 

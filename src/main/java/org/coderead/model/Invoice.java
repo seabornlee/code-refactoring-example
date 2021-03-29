@@ -1,6 +1,6 @@
 package org.coderead.model;
 
-import org.coderead.AbstractPerformanceCalculator;
+import org.coderead.calculator.AbstractPerformanceCalculator;
 
 import java.util.List;
 import java.util.Map;
