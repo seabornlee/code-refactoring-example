@@ -11,7 +11,12 @@ public abstract class AbstractPerformanceCalculator {
         if ("comedy".equals(type)) {
             return new ComedyCalculator();
         }
-        return null;
+
+        if ("action".equals(type)) {
+            return new ActionCalculator();
+        }
+
+        throw new IllegalArgumentException("Invalid type: " + type + ".");
     }
 
     public abstract double getVolumeCredits(Performance performance);
