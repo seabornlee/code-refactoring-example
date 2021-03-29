@@ -1,6 +1,9 @@
 package org.coderead.model;
 
+import org.coderead.AbstractPerformanceCalculator;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * 发票
@@ -28,5 +31,23 @@ public class Invoice {
 
     public void setPerformances(List<Performance> performances) {
         this.performances = performances;
+    }
+
+    public int getVolumeCredits(Map<String, Play> plays) {
+        int volumeCredits = 0;
+        for (Performance performance : getPerformances()) {
+            Play play = plays.get(performance.getPlayId());
+            volumeCredits += AbstractPerformanceCalculator.of(play.getType()).getVolumeCredits(performance);
+        }
+        return volumeCredits;
+    }
+
+    public int getTotalAmount(Map<String, Play> plays) {
+        int totalAmount = 0;
+        for (Performance performance : getPerformances()) {
+            Play play = plays.get(performance.getPlayId());
+            totalAmount += AbstractPerformanceCalculator.of(play.getType()).getAmount(performance);
+        }
+        return totalAmount;
     }
 }

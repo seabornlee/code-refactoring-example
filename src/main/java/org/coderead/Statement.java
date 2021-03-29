@@ -28,8 +28,8 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("Statement for %s", invoice.getCustomer()));
         stringBuilder.append(formatPerformances());
-        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(getTotalAmount())));
-        stringBuilder.append(String.format("You earned %s credits\n", getVolumeCredits()));
+        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(invoice.getTotalAmount(plays))));
+        stringBuilder.append(String.format("You earned %s credits\n", invoice.getVolumeCredits(plays)));
         return stringBuilder.toString();
     }
 
@@ -37,38 +37,13 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(getPerformanceCalculator(play).getAmount(performance)), performance.getAudience()));
+            stringBuilder.append(formatPerformance(performance, play));
         }
         return stringBuilder;
     }
 
-    private int getVolumeCredits() {
-        int volumeCredits = 0;
-        for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.get(performance.getPlayId());
-            volumeCredits += getPerformanceCalculator(play).getVolumeCredits(performance);
-        }
-        return volumeCredits;
-    }
-
-    private int getTotalAmount() {
-        int totalAmount = 0;
-        for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.get(performance.getPlayId());
-            totalAmount += getPerformanceCalculator(play).getAmount(performance);
-        }
-        return totalAmount;
-    }
-
-    private IPerformanceCalculator getPerformanceCalculator(Play play) {
-        if ("tragedy".equals(play.getType())) {
-            return new TragedyCalculator();
-        }
-
-        if ("comedy".equals(play.getType())) {
-            return new ComedyCalculator();
-        }
-        return null;
+    private String formatPerformance(Performance performance, Play play) {
+        return String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.of(play.getType()).getAmount(performance)), performance.getAudience());
     }
 
     private String formatUSD(double amount) {
